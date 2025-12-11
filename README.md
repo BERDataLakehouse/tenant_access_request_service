@@ -139,25 +139,5 @@ uv run ruff format .
 
 ## Slack App Setup
 
-1. Go to https://api.slack.com/apps → **Create New App** → **From scratch**
-2. Name: `BERDL Access Requests`
-3. **OAuth & Permissions** → Add Bot Token Scopes:
-   - `chat:write`
-   - `chat:update`
-4. **Install to Workspace** → Copy `Bot User OAuth Token`
-5. **Interactivity & Shortcuts** → Enable → Set Request URL:
-   - `https://<your-service-url>/slack/interact`
-6. **Basic Information** → Copy `Signing Secret`
-7. Invite the bot to `#berdl-governance` channel
+See [Slack Integration Setup Guide](docs/slack-setup.md) for detailed instructions on configuring the Slack app.
 
-## Docker
-
-```bash
-docker build -t tenant-access-request-service .
-docker run -p 8000:8000 \
-  -e SLACK_BOT_TOKEN=xoxb-... \
-  -e SLACK_SIGNING_SECRET=... \
-  -e SLACK_CHANNEL_ID=C... \
-  -e GOVERNANCE_API_URL=https://... \
-  tenant-access-request-service
-```
