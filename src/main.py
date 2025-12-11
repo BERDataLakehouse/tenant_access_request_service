@@ -31,10 +31,6 @@ class AuthMiddleware(BaseHTTPMiddleware):
         request_user = None
         auth_header = request.headers.get("Authorization")
 
-        # Skip auth for health check and Slack callback endpoints
-        if request.url.path in ["/health", "/slack/interact"]:
-            return await call_next(request)
-
         if auth_header:
             scheme, credentials = get_authorization_scheme_param(auth_header)
             if not (scheme and credentials):
@@ -42,6 +38,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
                     f"Authorization header requires {_SCHEME} scheme followed by token"
                 )
             if scheme.lower() != _SCHEME.lower():
+                # don't put the received scheme in the error message, might be a token
                 raise InvalidAuthHeaderError(
                     f"Authorization header requires {_SCHEME} scheme"
                 )
