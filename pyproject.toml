@@ -14,7 +14,7 @@ dependencies = [
     "aiohttp==3.12.15",
     "cacheout==0.16.0",
     "slack-sdk==3.34.0",
-    "ruff==0.14.4",
+    "ruff==0.14.8",
 ]
 
 [dependency-groups]
