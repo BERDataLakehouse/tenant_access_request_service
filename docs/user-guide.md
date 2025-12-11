@@ -106,29 +106,3 @@ No further action is needed.
 | `read_write` | Full access (read, write, modify, delete) |
 
 ---
-
-## Getting Your KBase Token
-
-To approve requests, you'll need your KBase authentication token:
-
-1. Log into [KBase](https://ci.kbase.us)
-2. Go to **Account** → **Developer Tools**
-3. Copy your authentication token
-
-Tokens expire periodically, so get a fresh one if approval fails.
-
----
-
-## FAQ
-
-**Q: How long does approval take?**
-A: Approvals are instant once an admin clicks the button.
-
-**Q: Can I request access to multiple tenants?**
-A: Yes, submit a separate request for each tenant.
-
-**Q: What if my request is denied?**
-A: Contact the admin who denied it or your team lead for clarification.
-
-**Q: Can I cancel my request?**
-A: Requests can only be approved or denied by admins. If submitted in error, ask an admin to deny it.
