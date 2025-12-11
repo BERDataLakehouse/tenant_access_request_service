@@ -2,7 +2,7 @@
 A client for the KBase Auth2 server.
 """
 
-# Copied from minio_manager_service/src/service/kb_auth.py
+# Mostly copied from https://github.com/kbase/cdm-task-service/blob/main/cdmtaskservice/kb_auth.py
 
 import logging
 import time
