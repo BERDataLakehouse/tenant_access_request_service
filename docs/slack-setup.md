@@ -14,7 +14,7 @@ This guide walks you through setting up the Slack integration for the Tenant Acc
 1. Open Slack and go to your workspace
 2. Click the **+** button next to "Channels" in the sidebar
 3. Select **Create a channel**
-4. Name it `#berdl-governance` (or your preferred name)
+4. Name it appropriately (e.g., `#admin-approvals` or similar)
 5. Set it to **Private** if you want only admins to see requests
 6. Click **Create**
 7. **Note the channel**: You'll add the bot here later
@@ -102,7 +102,7 @@ https://abc123.ngrok-free.dev/slack/interact
 
 ## Step 7: Get the Channel ID
 
-1. Open Slack and go to your `#berdl-governance` channel
+1. Open Slack and go to your admin notification channel
 2. Click the channel name at the top to open channel details
 3. Scroll down - the **Channel ID** is at the bottom (starts with `C`)
    - This is your `SLACK_CHANNEL_ID`
@@ -116,7 +116,7 @@ https://abc123.ngrok-free.dev/slack/interact
 
 ## Step 8: Invite Bot to Channel
 
-1. Go to your `#berdl-governance` channel
+1. Go to your admin notification channel
 2. Type `/invite @BERDL Access Requests` (or whatever you named your app)
 3. Press Enter to invite the bot
 
@@ -158,7 +158,7 @@ SLACK_CHANNEL_ID=C0123456789
      }'
    ```
 
-3. Check the `#berdl-governance` channel - you should see a message with Approve/Deny buttons!
+3. Check your admin channel - you should see a message with Approve/Deny buttons!
 
 ---
 

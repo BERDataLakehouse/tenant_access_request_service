@@ -30,7 +30,7 @@ request_tenant_access(
 
 ### Step 2: Wait for Approval
 
-Your request is sent to the `#berdl-governance` Slack channel where admins can review it.
+Your request is sent to a KBase admin for review.
 
 You'll see a message like:
 ```
@@ -48,7 +48,7 @@ Once approved, you'll have access to the tenant's data. The permissions take eff
 
 ### Viewing Requests
 
-Requests appear in the `#berdl-governance` Slack channel:
+Requests appear in Slack for admin review:
 
 ```
 🔔 Tenant Access Request
