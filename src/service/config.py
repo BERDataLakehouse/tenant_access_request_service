@@ -48,6 +48,12 @@ class Settings(BaseModel):
         description="URL of the minio_manager_service governance API",
     )
 
+    # Server configuration
+    root_path: str = Field(
+        default=os.getenv("ROOT_PATH", ""),
+        description="Root path prefix when served behind a reverse proxy (e.g., /apis/tenant-request)",
+    )
+
 
 @lru_cache()
 def get_settings() -> Settings:
