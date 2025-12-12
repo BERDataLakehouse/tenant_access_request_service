@@ -69,7 +69,7 @@ async def create_access_request(
     """
     Submit an access request for a tenant group.
 
-    The request will be sent to the a Slack channel configed by the SLACK_CHANNEL_ID
+    The request will be sent to a Slack channel configured by the SLACK_CHANNEL_ID
     environment variable where admins can review and approve/deny.
     """
     app_state = get_app_state(request)
