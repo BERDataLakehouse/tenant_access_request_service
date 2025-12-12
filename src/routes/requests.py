@@ -69,8 +69,8 @@ async def create_access_request(
     """
     Submit an access request for a tenant group.
 
-    The request will be sent to the #berdl-governance Slack channel where
-    admins can review and approve/deny.
+    The request will be sent to a Slack channel configured by the SLACK_CHANNEL_ID
+    environment variable where admins can review and approve/deny.
     """
     app_state = get_app_state(request)
     username = authenticated_user.user
@@ -89,7 +89,7 @@ async def create_access_request(
 
     return AccessRequestResponse(
         status="submitted",
-        message="Request sent to #berdl-governance for admin approval. Call get_my_groups() to check your membership after approval.",
+        message="Request received by KBase admin for approval. Call get_my_groups() to check your membership after approval.",
         requester=username,
         tenant_name=body.tenant_name,
         permission=body.permission,

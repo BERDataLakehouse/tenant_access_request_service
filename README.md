@@ -70,7 +70,7 @@ Slack interactive callback. Called by Slack when users click buttons.
 |----------|----------|-------------|
 | `SLACK_BOT_TOKEN` | Yes | Slack Bot OAuth Token (xoxb-...) |
 | `SLACK_SIGNING_SECRET` | Yes | Slack Signing Secret |
-| `SLACK_CHANNEL_ID` | Yes | Channel ID for #berdl-governance |
+| `SLACK_CHANNEL_ID` | Yes | Channel ID for admin notifications |
 | `GOVERNANCE_API_URL` | Yes | URL of minio_manager_service |
 | `KBASE_AUTH_URL` | No | KBase Auth URL (default: ci.kbase.us) |
 | `KBASE_ADMIN_ROLES` | No | Admin roles (default: CDM_JUPYTERHUB_ADMIN) |
