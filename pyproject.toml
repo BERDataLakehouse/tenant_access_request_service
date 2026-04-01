@@ -13,7 +13,7 @@ dependencies = [
     "pydantic==2.12.5",
     "aiohttp==3.13.2",
     "cacheout==0.16.0",
-    "slack-sdk==3.39.0",
+    "slack-sdk==3.41.0",
     "ruff==0.14.8",
 ]
 
