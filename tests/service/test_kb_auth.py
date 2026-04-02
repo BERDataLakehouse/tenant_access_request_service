@@ -10,7 +10,6 @@ from src.service.kb_auth import (
     KBaseAuth,
     KBaseUser,
     _check_error,
-    _get,
 )
 
 

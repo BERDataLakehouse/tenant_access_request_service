@@ -1,6 +1,5 @@
 """Tests for the dependencies module."""
 
-from unittest.mock import MagicMock
 
 import pytest
 from fastapi import HTTPException

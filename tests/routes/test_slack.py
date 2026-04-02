@@ -258,7 +258,9 @@ class TestSlackInteract:
 
         assert response.status_code == 200
 
-    def test_slack_interact_modal_submission_governance_error(self, test_client, mock_app):
+    def test_slack_interact_modal_submission_governance_error(
+        self, test_client, mock_app
+    ):
         """Test modal submission when governance API fails returns error to modal."""
         app, mock_state = mock_app
         mock_state.slack_client.verify_slack_signature = lambda *args, **kwargs: True
@@ -286,9 +288,7 @@ class TestSlackInteract:
                     }
                 ),
                 "state": {
-                    "values": {
-                        "token_block": {"kbase_token": {"value": "TEST_TOKEN"}}
-                    }
+                    "values": {"token_block": {"kbase_token": {"value": "TEST_TOKEN"}}}
                 },
             },
         }

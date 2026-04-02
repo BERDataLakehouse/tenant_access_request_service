@@ -136,7 +136,10 @@ class TestErrorFormatHandling:
 
         mock_response = MagicMock()
         mock_response.status_code = 400
-        mock_response.json.return_value = {"message": "Bad request data", "error_type": "validation"}
+        mock_response.json.return_value = {
+            "message": "Bad request data",
+            "error_type": "validation",
+        }
         mock_response.text = "Bad Request"
         mock_response.raise_for_status.side_effect = httpx.HTTPStatusError(
             "Error", request=MagicMock(), response=mock_response

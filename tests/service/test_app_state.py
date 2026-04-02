@@ -122,7 +122,9 @@ class TestGetAppState:
         mock_auth = MagicMock()
         mock_slack = MagicMock()
         mock_gov = MagicMock()
-        expected_state = AppState(auth=mock_auth, slack_client=mock_slack, governance_client=mock_gov)
+        expected_state = AppState(
+            auth=mock_auth, slack_client=mock_slack, governance_client=mock_gov
+        )
         mock_request.app.state._app_state = expected_state
         result = get_app_state(mock_request)
         assert result == expected_state
