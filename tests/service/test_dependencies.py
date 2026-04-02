@@ -1,6 +1,5 @@
 """Tests for the dependencies module."""
 
-
 import pytest
 from fastapi import HTTPException
 
