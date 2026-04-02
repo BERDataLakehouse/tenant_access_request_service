@@ -52,6 +52,17 @@ class AuthMiddleware(BaseHTTPMiddleware):
         return await call_next(request)
 
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logger.info("Starting application")
+    await app_state.build_app(app)
+    logger.info("Application started")
+    yield
+    logger.info("Shutting down application")
+    await app_state.destroy_app_state(app)
+    logger.info("Application shut down")
+
+
 def create_application() -> FastAPI:
     """Create and configure the FastAPI application."""
     settings = get_settings()
@@ -61,6 +72,7 @@ def create_application() -> FastAPI:
         description=settings.app_description,
         version=settings.api_version,
         root_path=settings.root_path,
+        lifespan=lifespan,
         responses={
             "4XX": {"model": ErrorResponse},
             "5XX": {"model": ErrorResponse},
@@ -79,17 +91,5 @@ def create_application() -> FastAPI:
     app.include_router(requests.router, tags=["requests"])
     app.include_router(approvals.router, tags=["approvals"])
     app.include_router(slack.router, tags=["slack"])
-
-    @asynccontextmanager
-    async def lifespan(_app: FastAPI):
-        logger.info("Starting application")
-        await app_state.build_app(app)
-        logger.info("Application started")
-        yield
-        logger.info("Shutting down application")
-        await app_state.destroy_app_state(app)
-        logger.info("Application shut down")
-
-    app.router.lifespan_context = lifespan
 
     return app
