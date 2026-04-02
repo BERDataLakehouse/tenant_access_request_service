@@ -3,6 +3,7 @@ Main application module for the Tenant Access Request Service.
 """
 
 import logging
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.gzip import GZipMiddleware
@@ -79,19 +80,16 @@ def create_application() -> FastAPI:
     app.include_router(approvals.router, tags=["approvals"])
     app.include_router(slack.router, tags=["slack"])
 
-    # Add startup and shutdown event handlers
-    async def startup_event():
+    @asynccontextmanager
+    async def lifespan(_app: FastAPI):
         logger.info("Starting application")
         await app_state.build_app(app)
         logger.info("Application started")
-
-    app.add_event_handler("startup", startup_event)
-
-    async def shutdown_event():
+        yield
         logger.info("Shutting down application")
         await app_state.destroy_app_state(app)
         logger.info("Application shut down")
 
-    app.add_event_handler("shutdown", shutdown_event)
+    app.router.lifespan_context = lifespan
 
     return app
