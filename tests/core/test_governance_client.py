@@ -103,6 +103,102 @@ class TestAddGroupMember:
                 )
 
 
+class TestErrorFormatHandling:
+    """Tests for different error response formats from governance API."""
+
+    @pytest.mark.asyncio
+    async def test_error_with_detail_field(self):
+        """Test error response with 'detail' field."""
+        client = GovernanceClient(api_url="http://localhost:8000")
+
+        mock_response = MagicMock()
+        mock_response.status_code = 403
+        mock_response.json.return_value = {"detail": "User not authorized"}
+        mock_response.text = "Forbidden"
+        mock_response.raise_for_status.side_effect = httpx.HTTPStatusError(
+            "Error", request=MagicMock(), response=mock_response
+        )
+
+        mock_client = AsyncMock()
+        mock_client.post = AsyncMock(return_value=mock_response)
+
+        with patch("httpx.AsyncClient") as mock_cls:
+            mock_cls.return_value.__aenter__.return_value = mock_client
+            with pytest.raises(GovernanceAPIError, match="User not authorized"):
+                await client.add_group_member(
+                    admin_token="token", tenant_name="t", username="u", read_only=False
+                )
+
+    @pytest.mark.asyncio
+    async def test_error_with_message_field(self):
+        """Test error response with 'message' field."""
+        client = GovernanceClient(api_url="http://localhost:8000")
+
+        mock_response = MagicMock()
+        mock_response.status_code = 400
+        mock_response.json.return_value = {"message": "Bad request data", "error_type": "validation"}
+        mock_response.text = "Bad Request"
+        mock_response.raise_for_status.side_effect = httpx.HTTPStatusError(
+            "Error", request=MagicMock(), response=mock_response
+        )
+
+        mock_client = AsyncMock()
+        mock_client.post = AsyncMock(return_value=mock_response)
+
+        with patch("httpx.AsyncClient") as mock_cls:
+            mock_cls.return_value.__aenter__.return_value = mock_client
+            with pytest.raises(GovernanceAPIError, match="Bad request data"):
+                await client.add_group_member(
+                    admin_token="token", tenant_name="t", username="u", read_only=False
+                )
+
+    @pytest.mark.asyncio
+    async def test_error_with_unknown_json_format(self):
+        """Test error response with neither detail nor message field."""
+        client = GovernanceClient(api_url="http://localhost:8000")
+
+        mock_response = MagicMock()
+        mock_response.status_code = 500
+        mock_response.json.return_value = {"code": 500, "info": "Unknown"}
+        mock_response.text = "Internal error text"
+        mock_response.raise_for_status.side_effect = httpx.HTTPStatusError(
+            "Error", request=MagicMock(), response=mock_response
+        )
+
+        mock_client = AsyncMock()
+        mock_client.post = AsyncMock(return_value=mock_response)
+
+        with patch("httpx.AsyncClient") as mock_cls:
+            mock_cls.return_value.__aenter__.return_value = mock_client
+            with pytest.raises(GovernanceAPIError, match="Internal error text"):
+                await client.add_group_member(
+                    admin_token="token", tenant_name="t", username="u", read_only=False
+                )
+
+    @pytest.mark.asyncio
+    async def test_error_with_non_json_response(self):
+        """Test error response where .json() raises."""
+        client = GovernanceClient(api_url="http://localhost:8000")
+
+        mock_response = MagicMock()
+        mock_response.status_code = 502
+        mock_response.json.side_effect = ValueError("Not JSON")
+        mock_response.text = "Bad Gateway HTML"
+        mock_response.raise_for_status.side_effect = httpx.HTTPStatusError(
+            "Error", request=MagicMock(), response=mock_response
+        )
+
+        mock_client = AsyncMock()
+        mock_client.post = AsyncMock(return_value=mock_response)
+
+        with patch("httpx.AsyncClient") as mock_cls:
+            mock_cls.return_value.__aenter__.return_value = mock_client
+            with pytest.raises(GovernanceAPIError, match="Bad Gateway HTML"):
+                await client.add_group_member(
+                    admin_token="token", tenant_name="t", username="u", read_only=False
+                )
+
+
 class TestGroupNameGeneration:
     """Tests for group name generation logic."""
 
